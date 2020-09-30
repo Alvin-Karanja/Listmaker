@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var listsRecyclerView: RecyclerView
 
+    val listDataManager: ListDataManager = ListDataManager(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -61,6 +63,12 @@ class MainActivity : AppCompatActivity() {
 
         // Add a Positive button
         builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
+            val list = TaskList(listTitleEditText.text.toString())
+            listDataManager.saveList(list)
+
+            val recyclerAdapter = listsRecyclerView.adapter as ListSelectionRecyclerViewAdapter
+            recyclerAdapter.addList(list)
+            
             dialog.dismiss()
         }
 
