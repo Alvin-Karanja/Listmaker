@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ListSelectionRecyclerViewAdapter : RecyclerView.Adapter<ListSelectionViewHolder>() {
+class ListSelectionRecyclerViewAdapter(private val lists : ArrayList<TaskList>) : RecyclerView.Adapter<ListSelectionViewHolder>() {
 
     val listTitles = arrayOf("Shopping List", "Chores", "Android Tutorials")
 
@@ -22,12 +22,19 @@ class ListSelectionRecyclerViewAdapter : RecyclerView.Adapter<ListSelectionViewH
         return ListSelectionViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ListSelectionViewHolder, position: Int) {
-        holder.listPosition.text = (position + 1).toString()
-        holder.listTitle.text = listTitles[position]
+    override fun getItemCount(): Int {
+        return lists.size
     }
 
-    override fun getItemCount(): Int {
-        return listTitles.size
+    override fun onBindViewHolder(holder: ListSelectionViewHolder, position: Int) {
+        holder.listPosition.text = (position + 1).toString()
+        holder.listTitle.text = lists.get(position).name
+    }
+
+    fun addList(list: TaskList) {
+        // update the ArrayList with the new TaskList
+        lists.add(list)
+        
+        notifyItemInserted(lists.size - 1)
     }
 }

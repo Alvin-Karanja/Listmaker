@@ -13,9 +13,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var listsRecyclerView: RecyclerView
-
     val listDataManager: ListDataManager = ListDataManager(this)
+
+    lateinit var listsRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +26,12 @@ class MainActivity : AppCompatActivity() {
             showCreateListDialog()
         }
 
+        // You get a list of TaskList s from listDataManager , ready for use.
+        val lists = listDataManager.readLists()
         listsRecyclerView = findViewById(R.id.lists_recyclerview)
-
         listsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        listsRecyclerView.adapter = ListSelectionRecyclerViewAdapter()
+        listsRecyclerView.adapter = ListSelectionRecyclerViewAdapter(lists)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
             val recyclerAdapter = listsRecyclerView.adapter as ListSelectionRecyclerViewAdapter
             recyclerAdapter.addList(list)
-            
+
             dialog.dismiss()
         }
 
