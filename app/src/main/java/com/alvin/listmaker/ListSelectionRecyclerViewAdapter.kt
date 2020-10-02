@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class ListSelectionRecyclerViewAdapter(private val lists : ArrayList<TaskList>) : RecyclerView.Adapter<ListSelectionViewHolder>() {
-
-    val listTitles = arrayOf("Shopping List", "Chores", "Android Tutorials")
-
+    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListSelectionViewHolder {
 
         // LayoutInflater is a system utility used to instantiate (or "inflate") a
