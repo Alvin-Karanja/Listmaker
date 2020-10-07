@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             recyclerAdapter.addList(list)
 
             dialog.dismiss()
+            showListDetail(list)
         }
 
         // instruct Dialog Builder to create the Dialog and display it
