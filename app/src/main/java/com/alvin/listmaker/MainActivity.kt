@@ -1,5 +1,6 @@
 package com.alvin.listmaker
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
@@ -75,5 +76,17 @@ class MainActivity : AppCompatActivity() {
 
         // instruct Dialog Builder to create the Dialog and display it
         builder.create().show()
+    }
+
+    // Create Intent
+    private fun showListDetail(list: TaskList) {
+        val listDetailIntent = Intent(this, ListDetailActivity::class.java)
+        // Add Extra
+        listDetailIntent.putExtra(INTENT_LIST_KEY, list)
+        startActivity(listDetailIntent)
+    }
+
+    companion object {
+        const val INTENT_LIST_KEY = "list"
     }
 }
