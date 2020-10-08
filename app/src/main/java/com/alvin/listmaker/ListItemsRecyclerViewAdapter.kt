@@ -8,10 +8,11 @@ class ListItemsRecyclerViewAdapter(var list: TaskList) : RecyclerView.Adapter<Li
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_view_holder, parent, false)
+        return ListItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.taskTextView.text = list.tasks[position]
     }
 
     override fun getItemCount(): Int {
