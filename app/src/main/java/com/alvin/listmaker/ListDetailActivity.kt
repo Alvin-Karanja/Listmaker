@@ -28,5 +28,10 @@ class ListDetailActivity : AppCompatActivity() {
         // Assign the RecyclerView a Layout Manager that uses a LinearLayoutManager to
         //handle the presentation.
         listItemsRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        addTaskButton = findViewById(R.id.add_task_button)
+        addTaskButton.setOnClickListener {
+            showCreateTaskDialog()
+        }
     }
 }
