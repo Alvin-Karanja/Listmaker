@@ -1,5 +1,7 @@
 package com.alvin.listmaker
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
@@ -20,8 +22,8 @@ class ListDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_detail)
-        // Added ? and !!
-        list = (intent.getParcelableExtra(MainActivity.INTENT_LIST_KEY) as TaskList?)!!
+        // Added explicit type argument
+        list = (intent.getParcelableExtra<TaskList>(MainActivity.INTENT_LIST_KEY) as TaskList)
         title = list.name
 
         // Assign RecyclerView to the local variable
@@ -67,5 +69,15 @@ class ListDetailActivity : AppCompatActivity() {
 
             .create()
             .show()
+    }
+
+    override fun onBackPressed() {
+        val bundle = Bundle()
+        bundle.putParcelable(MainActivity.INTENT_LIST_KEY, list)
+
+        val intent = Intent()
+        intent.putExtras(bundle)
+        setResult(Activity.RESULT_OK, intent)
+        super.onBackPressed()
     }
 }
