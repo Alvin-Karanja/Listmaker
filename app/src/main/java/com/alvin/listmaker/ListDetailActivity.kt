@@ -2,8 +2,12 @@ package com.alvin.listmaker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class ListDetailActivity : AppCompatActivity() {
+
+    lateinit var listItemsRecyclerView : RecyclerView
 
     lateinit var list: TaskList
 
@@ -13,5 +17,13 @@ class ListDetailActivity : AppCompatActivity() {
         // Added ? and !!
         list = (intent.getParcelableExtra(MainActivity.INTENT_LIST_KEY) as TaskList?)!!
         title = list.name
+
+        // Assign RecyclerView to the local variable
+        listItemsRecyclerView = findViewById(R.id.list_items_recyclerview)
+        // Assign the RecyclerView an Adapter, and pass in the list
+        listItemsRecyclerView.adapter = ListItemsRecyclerViewAdapter(list)
+        // Assign the RecyclerView a Layout Manager that uses a LinearLayoutManager to
+        //handle the presentation.
+        listItemsRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 }
