@@ -68,4 +68,10 @@ class ListSelectionFragment : Fragment(), ListSelectionRecyclerViewAdapter.ListS
             return ListSelectionFragment()
         }
     }
+
+    fun addList(list : TaskList) {
+        listDataManager.saveList(list)
+        val recyclerAdapter = listsRecyclerView.adapter as ListSelectionRecyclerViewAdapter
+        recyclerAdapter.addList(list)
+    }
 }
