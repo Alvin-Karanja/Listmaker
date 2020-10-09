@@ -6,15 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import java.lang.RuntimeException
 
 class ListSelectionFragment : Fragment() {
+
+    lateinit var listDataManager: ListDataManager
+    lateinit var listsRecyclerView: RecyclerView
+
     private var listener: OnListItemFragmentInteractionListener? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnListItemFragmentInteractionListener) {
             listener = context
+            listDataManager = ListDataManager(context)
         } else {
             throw RuntimeException("$context must implement OnListItemFragmentInteractionListener")
         }
