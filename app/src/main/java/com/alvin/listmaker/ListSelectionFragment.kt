@@ -50,6 +50,7 @@ class ListSelectionFragment : Fragment(), ListSelectionRecyclerViewAdapter.ListS
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         val lists = listDataManager.readLists()
         view?.let {
             listsRecyclerView = it.findViewById(R.id.lists_recyclerview)

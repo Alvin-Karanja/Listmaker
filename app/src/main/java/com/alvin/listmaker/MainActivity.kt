@@ -7,6 +7,7 @@ import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,12 +16,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ListSelectionFragment.OnListItemFragmentInteractionListener {
 
+    private var fragmentContainer: FrameLayout? = null
+
     private var listSelectionFragment: ListSelectionFragment = ListSelectionFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        fragmentContainer = findViewById(R.id.fragment_container)
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_container, listSelectionFragment)
+            .commit()
 
         fab.setOnClickListener {
             showCreateListDialog()
@@ -59,9 +68,6 @@ class MainActivity : AppCompatActivity(), ListSelectionFragment.OnListItemFragme
         builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
             val list = TaskList(listTitleEditText.text.toString())
             listSelectionFragment.addList(list)
-
-            val recyclerAdapter = listsRecyclerView.adapter as ListSelectionRecyclerViewAdapter
-            recyclerAdapter.addList(list)
 
             dialog.dismiss()
             showListDetail(list)
