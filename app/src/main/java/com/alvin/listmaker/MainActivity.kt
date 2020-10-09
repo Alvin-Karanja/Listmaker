@@ -87,13 +87,9 @@ class MainActivity : AppCompatActivity(), ListSelectionFragment.OnListItemFragme
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        //
-        if (requestCode == LIST_DETAIL_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            //
+        if (requestCode == LIST_DETAIL_REQUEST_CODE) {
             data?.let {
-                //
-                listDataManager.saveList(data.getParcelableExtra<TaskList>(INTENT_LIST_KEY) as TaskList)
-                updateLists()
+                listSelectionFragment.saveList(data.getParcelableExtra<TaskList>(INTENT_LIST_KEY) as TaskList)
             }
         }
     }
