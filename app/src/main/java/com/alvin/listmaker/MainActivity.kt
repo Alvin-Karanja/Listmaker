@@ -94,12 +94,6 @@ class MainActivity : AppCompatActivity(), ListSelectionFragment.OnListItemFragme
         }
     }
 
-    private fun updateLists() {
-        val lists = listDataManager.readLists()
-        listsRecyclerView.adapter =
-            ListSelectionRecyclerViewAdapter(lists, this)
-    }
-
     companion object {
         const val INTENT_LIST_KEY = "list"
         const val LIST_DETAIL_REQUEST_CODE = 123

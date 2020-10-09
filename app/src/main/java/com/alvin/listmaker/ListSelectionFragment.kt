@@ -74,4 +74,15 @@ class ListSelectionFragment : Fragment(), ListSelectionRecyclerViewAdapter.ListS
         val recyclerAdapter = listsRecyclerView.adapter as ListSelectionRecyclerViewAdapter
         recyclerAdapter.addList(list)
     }
+
+    fun saveList(list: TaskList) {
+        listDataManager.saveList(list)
+        updateLists()
+    }
+
+    private fun updateLists() {
+        val lists = listDataManager.readLists()
+        listsRecyclerView.adapter =
+            ListSelectionRecyclerViewAdapter(lists, this)
+    }
 }
