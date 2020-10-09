@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), ListSelectionFragment.OnListItemFragme
         // Add a Positive button
         builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
             val list = TaskList(listTitleEditText.text.toString())
-            listDataManager.saveList(list)
+            listSelectionFragment.addList(list)
 
             val recyclerAdapter = listsRecyclerView.adapter as ListSelectionRecyclerViewAdapter
             recyclerAdapter.addList(list)
