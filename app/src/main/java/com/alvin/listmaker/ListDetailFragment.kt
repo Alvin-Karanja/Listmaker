@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ListDetailFragment : Fragment() {
 
     lateinit var listItemsRecyclerView: RecyclerView
+
     lateinit var list: TaskList
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,17 @@ class ListDetailFragment : Fragment() {
         return view
     }
 
+    fun addTask(item: String) {
+
+        list.tasks.add(item)
+
+        val listRecyclerAdapter =  listItemsRecyclerView.adapter as ListItemsRecyclerViewAdapter
+        listRecyclerAdapter.list = list
+        listRecyclerAdapter.notifyDataSetChanged()
+    }
+
     companion object {
+
         private const val ARG_LIST = "list"
 
         fun newInstance(list: TaskList): ListDetailFragment {
