@@ -13,10 +13,13 @@ import java.lang.RuntimeException
 class ListSelectionFragment : Fragment(), ListSelectionRecyclerViewAdapter.ListSelectionRecyclerViewClickListener {
 
     lateinit var listDataManager: ListDataManager
+
     lateinit var listsRecyclerView: RecyclerView
 
+    // 1
     private var listener: OnListItemFragmentInteractionListener? = null
 
+    // 2
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnListItemFragmentInteractionListener) {
@@ -27,51 +30,43 @@ class ListSelectionFragment : Fragment(), ListSelectionRecyclerViewAdapter.ListS
         }
     }
 
-    override fun listItemClicked(list: TaskList) {
-        listener?.onListItemClicked(list)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
     }
 
+    // 3
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    // 4
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+
         return inflater.inflate(R.layout.fragment_list_selection, container, false)
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val lists = listDataManager.readLists()
-        view?.let {
+        view.let {
             listsRecyclerView = it.findViewById(R.id.lists_recyclerview)
             listsRecyclerView.layoutManager = LinearLayoutManager(activity)
             listsRecyclerView.adapter = ListSelectionRecyclerViewAdapter(lists, this)
         }
     }
 
-    interface OnListItemFragmentInteractionListener {
-        fun onListItemClicked(list: TaskList)
-    }
-
-
-    companion object {
-        fun newInstance(): ListSelectionFragment {
-            return ListSelectionFragment()
-        }
+    // 5
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     fun addList(list : TaskList) {
+
         listDataManager.saveList(list)
+
         val recyclerAdapter = listsRecyclerView.adapter as ListSelectionRecyclerViewAdapter
         recyclerAdapter.addList(list)
     }
@@ -83,7 +78,22 @@ class ListSelectionFragment : Fragment(), ListSelectionRecyclerViewAdapter.ListS
 
     private fun updateLists() {
         val lists = listDataManager.readLists()
-        listsRecyclerView.adapter =
-            ListSelectionRecyclerViewAdapter(lists, this)
+        listsRecyclerView.adapter = ListSelectionRecyclerViewAdapter(lists, this)
+    }
+
+    override fun listItemClicked(list: TaskList) {
+        listener?.onListItemClicked(list)
+    }
+
+    interface OnListItemFragmentInteractionListener {
+        fun onListItemClicked(list: TaskList)
+    }
+
+    // 6
+    companion object {
+
+        fun newInstance(): ListSelectionFragment {
+            return ListSelectionFragment()
+        }
     }
 }

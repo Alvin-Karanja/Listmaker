@@ -5,16 +5,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class ListDetailFragment : Fragment() {
 
+    lateinit var listItemsRecyclerView: RecyclerView
+    lateinit var list: TaskList
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            list = it.getParcelable(MainActivity.INTENT_LIST_KEY)!!
+        }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_detail, container, false)
+        val view = inflater.inflate(R.layout.fragment_list_detail, container, false)
+
+        view?.let {
+            listItemsRecyclerView = it.findViewById(R.id.list_items_recyclerview)
+            listItemsRecyclerView.adapter = ListItemsRecyclerViewAdapter(list)
+            listItemsRecyclerView.layoutManager = LinearLayoutManager(context)
+        }
+
+        return view
     }
 
     companion object {
